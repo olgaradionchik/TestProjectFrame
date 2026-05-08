@@ -21,10 +21,10 @@ public class PostmanTest {
                 .get("/get")
                 .then()
                 .statusCode(HttpStatus.SC_OK) // Проверка статус-кода
-                // Сравниваем значения всех полей в объекте args (аргументы запроса)
+                //Сравниваем значения всех полей
                 .body("args.foo1", equalTo("bar1"))
                 .body("args.foo2", equalTo("bar2"))
-                // Проверяем, что в ответе нет лишних аргументов
+                //Проверяем, что нет лишних аргументов
                 .body("args.size()", is(2))
                 .log().all();
     }
@@ -48,15 +48,15 @@ public class PostmanTest {
     void testPostFormData() {
         given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("username", "admin")
-                .formParam("secret", "12345")
+                .formParam("username", "test")
+                .formParam("secret", "11111")
                 .when()
                 .post("/post")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
-                // Проверяем все значения в объекте form
-                .body("form.username", equalTo("admin"))
-                .body("form.secret", equalTo("12345"))
+                //Проверяем все значения в объекте form
+                .body("form.username", equalTo("test"))
+                .body("form.secret", equalTo("11111"))
                 .log().all();
     }
     @Test
@@ -70,7 +70,6 @@ public class PostmanTest {
                 .put("/put")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
-                // Проверяем через 'json.', так как Echo оборачивает ответ
                 .body("json.status", equalTo("updated"))
                 .log().all();
     }
