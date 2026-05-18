@@ -1,5 +1,6 @@
 package org.example.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -26,7 +27,7 @@ public class PaymentPage {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
-
+    @Step("Проверить и закрыть баннер cookie")
     public void handleCookieBanner() {
         try {
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -37,12 +38,12 @@ public class PaymentPage {
             System.out.println("Cookie баннер отсутствует или уже закрыт.");
         }
     }
-
+    @Step("Нажать на ссылку 'Подробнее о сервисе'")
     public void clickDetailsLink() {
         WebElement link = wait.until(ExpectedConditions.elementToBeClickable(DETAILS_LINK));
         link.click();
     }
-
+    @Step("Заполнить форму пополнения: номер телефона '{phone}', сумма пополнения '{sum}'")
     public void fillForm(String phone, String sum) {
         WebElement phoneField = wait.until(ExpectedConditions.elementToBeClickable(PHONE_INPUT));
         phoneField.clear();
@@ -52,7 +53,7 @@ public class PaymentPage {
         sumField.clear();
         sumField.sendKeys(sum);
     }
-
+    @Step("Нажать кнопку 'Продолжить' для отправки формы")
     public void clickContinue() {
         WebElement btn = wait.until(ExpectedConditions.presenceOfElementLocated(SUBMIT_BUTTON));
         // Используем JS-клик для 100% защиты от случайных перекрытий анимациями сайта
